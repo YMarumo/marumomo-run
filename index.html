@@ -279,9 +279,7 @@ const body = new THREE.Group(); player.add(body);
   });
   body.userData.limbs = limbs;
 })();
-const shadowBlob = new THREE.Mesh(new THREE.CircleGeometry(.55, 20), new THREE.MeshBasicMaterial({color:0x4a2338, transparent:true, opacity:.18}));
-shadowBlob.rotation.x = -Math.PI/2; shadowBlob.position.y = .015;
-scene.add(player); scene.add(shadowBlob);
+scene.add(player);
 
 // ---------- obstacles & stars ----------
 const starShape = (() => {
@@ -706,9 +704,6 @@ function tick(){
   body.scale.set(1 + sq * .5, 1 - sq * .6, 1 + sq * .5);
   if (state.mode !== 'dying') body.rotation.z = (LANES[state.lane] - state.x) * -.12;
   body.userData.leaves.forEach((l, i) => l.rotation.x = Math.sin(state.t * 10 + i) * .25);
-  shadowBlob.position.set(state.x, .015, state.z);
-  const sh = 1 - Math.min(state.y, 2) * .3; shadowBlob.scale.setScalar(sh);
-  shadowBlob.material.opacity = .18 * sh;
 
   // camera behind the back
   camPos.x += (state.x * .55 - camPos.x) * Math.min(1, dt * 5);
